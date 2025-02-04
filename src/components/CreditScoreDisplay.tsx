@@ -1,21 +1,48 @@
-import React, { useContext } from 'react';
-import { CreditSimulationContext } from '../hooks/useCreditSimulation';
+import React, { useContext } from "react";
+import { CreditSimulationContext } from "../hooks/useCreditSimulation";
+import { useTheme } from "../providers/ThemeProvider";
+import { ScoreRange } from "./ScoreRange";
 
 const CreditScoreDisplay: React.FC = () => {
   const { creditScore } = useContext(CreditSimulationContext);
-
-  const getScoreCategory = (score: number): string => {
-    if (score < 580) return 'Poor';
-    if (score < 670) return 'Fair';
-    if (score < 740) return 'Good';
-    if (score < 800) return 'Very Good';
-    return 'Excellent';
+  const { colors } = useTheme();
+  console.log({ creditScore });
+  const getScoreColor = (score: number) => {
+    if (score >= 800) return colors.excellent;
+    if (score >= 740) return colors.veryGood;
+    if (score >= 670) return colors.good;
+    if (score >= 580) return colors.fair;
+    return colors.poor;
   };
 
   return (
-    <div>
-      <h3>Credit Score: {creditScore}</h3>
-      <p>Category: {getScoreCategory(creditScore)}</p>
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative w-48 h-48">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="#e6e6e6"
+            strokeWidth="10"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke={getScoreColor(creditScore)}
+            strokeWidth="10"
+            strokeDasharray={`${((creditScore - 300) / 550) * 283} 283`}
+            transform="rotate(-90 50 50)"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-4xl font-bold">{creditScore}</span>
+        </div>
+      </div>
+      <ScoreRange score={creditScore} />
     </div>
   );
 };

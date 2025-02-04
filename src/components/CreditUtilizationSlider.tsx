@@ -8,15 +8,16 @@ interface CreditUtilizationSliderProps {
 
 const CreditUtilizationSlider: React.FC<CreditUtilizationSliderProps> = ({ value, onChange }) => {
   return (
-    <div className="slider-container">
-      <label htmlFor="credit-utilization">Credit Utilization: {value}%</label>
+    <div className="mb-4">
+      <label className="block text-lg font-medium">Credit Utilization (%):</label>
       <input
-        id="credit-utilization"
         type="range"
         min="0"
         max="100"
-        value={value}
+        step="1"
         onChange={(e) => onChange(parseInt(e.target.value))}
+        name="creditUtilization"
+        className="w-full"
       />
     </div>
   );
