@@ -6,7 +6,7 @@ import { ScoreRange } from "./ScoreRange";
 const CreditScoreDisplay: React.FC = () => {
   const { creditScore } = useContext(CreditSimulationContext);
   const { colors } = useTheme();
-  console.log({ creditScore });
+
   const getScoreColor = (score: number) => {
     if (score >= 800) return colors.excellent;
     if (score >= 740) return colors.veryGood;

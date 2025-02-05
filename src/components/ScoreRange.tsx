@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react"
+import { getCategoryDescription } from "../utils/gen"
 import { useTheme } from "../providers/ThemeProvider"
 
 interface ScoreRangeProps {
@@ -6,7 +7,7 @@ interface ScoreRangeProps {
 }
 
 export function ScoreRange({ score }: ScoreRangeProps) {
-  const { scoreRanges, colors } = useTheme();
+  const { scoreRanges, colors } = useTheme()
 
   const getScoreCategory = (score: number) => {
     if (score >= scoreRanges.excellent[0]) return "Excellent"
@@ -24,11 +25,16 @@ export function ScoreRange({ score }: ScoreRangeProps) {
     return colors.poor
   }
 
+
+  const category = getScoreCategory(score)
+
   return (
     <div className="mt-4 text-center">
       <span className="text-lg font-semibold" style={{ color: getScoreColor(score) }}>
-        {getScoreCategory(score)}
+        {category}
       </span>
+      <p className="text-sm mt-2 max-w-md">{getCategoryDescription(category)}</p>
     </div>
   )
 }
+

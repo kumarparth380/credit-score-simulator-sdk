@@ -1,4 +1,6 @@
 import React from 'react';
+import useCreditSimulation from '../hooks/useCreditSimulation';
+import { Label } from './common/Label';
 
 interface CreditUtilizationSliderProps {
   value?: number;
@@ -9,15 +11,16 @@ interface CreditUtilizationSliderProps {
 const CreditUtilizationSlider: React.FC<CreditUtilizationSliderProps> = ({ value, onChange }) => {
   return (
     <div className="mb-4">
-      <label className="block text-lg font-medium">Credit Utilization (%):</label>
+      <Label>Credit Utilization: {value}%</Label>
       <input
         type="range"
         min="0"
         max="100"
         step="1"
+        value={value}
         onChange={(e) => onChange(parseInt(e.target.value))}
         name="creditUtilization"
-        className="w-full"
+        className="w-full accent-cyan-600"
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { useState, createContext, useEffect, ChangeEvent } from 'react';
 // Define a context for the credit score
 export const CreditSimulationContext = createContext<{ creditScore: number }>({ creditScore: 700 });
 
-interface SimulationData {
+export interface SimulationData {
   creditUtilization: number;
   paymentHistory: 'onTime' | 'missed';
   newCreditApplications: number;
@@ -13,7 +13,7 @@ interface SimulationData {
 
 const useCreditSimulation = () => {
   const [simulationData, setSimulationData] = useState<SimulationData>({
-    creditUtilization: 0,
+    creditUtilization: 30,
     paymentHistory: 'onTime',
     newCreditApplications: 0,
     creditAge: 10,
@@ -55,7 +55,7 @@ const useCreditSimulation = () => {
     setSimulationData((prevData) => ({
       ...prevData,
       [name]: name === 'newCreditApplications' || name === 'creditAge' || name === 'debtToIncomeRatio'
-        ? parseInt(value, 10)
+        ? parseInt(value === '' ? '0' : value, 10)
         : value,
     }));
   };
