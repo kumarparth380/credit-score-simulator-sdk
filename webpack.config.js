@@ -2,13 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',          // Entry point for the SDK
+  entry: './src/index.ts',          // Entry point for the SDK
   output: {
-    filename: 'bundle.js',           // Output bundle file
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',                 // Make sure the assets are served from the root
-    library: 'CreditScoreSDK',
-    libraryTarget: 'umd',
+    filename: 'credit-score-simulator-sdk.js',           // Output bundle file
+    library: 'CreditScoreSimulatorSDK',  // Expose the SDK as a global object
+    libraryTarget: 'umd',  // Universal Module Definition for compatibility
+    globalObject: 'this',  // To ensure it works in both browsers and Node.js
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],  // Handle file extensions
@@ -43,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',  // HTML template
+      template: './src/index.html',  // HTML template
     }),
   ],
 };
